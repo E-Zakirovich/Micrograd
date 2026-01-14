@@ -83,6 +83,11 @@ class Value:
             _children=(self,),
             _operation=" exp ",
         )
+
+        def _backward():
+            self.grad += out.data * out.grad
+
+        out._backward = _backward
         return out
 
     def tanh(self):
