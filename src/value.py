@@ -20,3 +20,16 @@ class Value:
     def __radd__(self, other):
         other = other if isinstance(other, Value) else Value(other)
         return self + other
+
+    def __mul__(self, other):
+        other = other if isinstance(other, Value) else Value(other)
+        out = Value(
+            data=self.data * other.data,
+            _children=(self, other),
+            _operation=" mul ",
+        )
+        return out
+
+    def __rmul__(self, other):
+        other = other if isinstance(other, Value) else Value(other)
+        return self * other
