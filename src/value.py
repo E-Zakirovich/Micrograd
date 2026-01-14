@@ -97,4 +97,9 @@ class Value:
             _children=(self,),
             _operation=" tan ",
         )
+
+        def _backward():
+            self.grad += (1 - out.data ** 2) * out.grad
+
+        out._backward = _backward
         return out
