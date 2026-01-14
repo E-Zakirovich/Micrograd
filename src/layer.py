@@ -7,7 +7,7 @@ class Layer:
 
     def __call__(self, x):
         out = [n(x) for n in self.neurons]
-        return out
+        return out[0] if len(out) == 1 else out
 
     def parameters(self):
         params = []

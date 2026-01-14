@@ -1,6 +1,9 @@
-from value import Value
-from layer import Layer
+from mlp import MLP
+
 x = [1.0, 3.0, 2.0]
-n = Layer(3, 3)
+n = MLP(
+    nin=3,
+    nouts=[3, 3, 1]
+)
 o = n(x)
 print(o)
