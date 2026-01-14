@@ -20,6 +20,13 @@ class Value:
             _children=(self, other),
             _operation=" add ",
         )
+
+        def _backward():
+            self.grad += 1.0 * out.grad
+            other.grad += 1.0 * other.grad
+
+        out._backward = _backward
+
         return out
 
     def __radd__(self, other):
@@ -32,6 +39,13 @@ class Value:
             _children=(self, other),
             _operation=" mul ",
         )
+
+        def _backward():
+            self.grad += other.data * out.grad
+            other.grad += self.data * other.grad
+
+        out._backward = _backward
+
         return out
 
     def __rmul__(self, other):
