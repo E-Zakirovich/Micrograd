@@ -44,3 +44,12 @@ class Value:
     def __rsub__(self, other):
         other = other if isinstance(other, Value) else Value(other)
         return other + (-self)
+
+    def __pow__(self, other):
+        assert isinstance(other, (int, float)), "Power must be int or float"
+        out = Value(
+            data=self.data ** other,
+            _children=(self, other),
+            _operation=f" {self.label} ^ {other} ",
+        )
+        return out
