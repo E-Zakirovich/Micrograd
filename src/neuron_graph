@@ -1,0 +1,32 @@
+digraph {
+	graph [rankdir=LR]
+	4876147776 [label="{ | data -6.0000 | grad 0.5000}" shape=record]
+	"4876147776 mul " [label=" mul "]
+	"4876147776 mul " -> 4876147776
+	4876148352 [label="{ | data 0.8814 | grad 0.5000}" shape=record]
+	"4876148352 add " [label=" add "]
+	"4876148352 add " -> 4876148352
+	4875897072 [label="{w2 | data 1.0000 | grad 0.0000}" shape=record]
+	4876147968 [label="{ | data 0.0000 | grad 0.5000}" shape=record]
+	"4876147968 mul " [label=" mul "]
+	"4876147968 mul " -> 4876147968
+	4876148496 [label="{ | data 0.7071 | grad 1.0000}" shape=record]
+	"4876148496 tanh " [label=" tanh "]
+	"4876148496 tanh " -> 4876148496
+	4875897120 [label="{b | data 6.8814 | grad 0.5000}" shape=record]
+	4875796208 [label="{x1 | data 2.0000 | grad -1.5000}" shape=record]
+	4875796304 [label="{x2 | data 0.0000 | grad 0.5000}" shape=record]
+	4873350480 [label="{w1 | data -3.0000 | grad 1.0000}" shape=record]
+	4876148160 [label="{ | data -6.0000 | grad 0.5000}" shape=record]
+	"4876148160 add " [label=" add "]
+	"4876148160 add " -> 4876148160
+	4876148352 -> "4876148496 tanh "
+	4875796208 -> "4876147776 mul "
+	4875897120 -> "4876148352 add "
+	4876147776 -> "4876148160 add "
+	4875897072 -> "4876147968 mul "
+	4876147968 -> "4876148160 add "
+	4875796304 -> "4876147968 mul "
+	4876148160 -> "4876148352 add "
+	4873350480 -> "4876147776 mul "
+}
