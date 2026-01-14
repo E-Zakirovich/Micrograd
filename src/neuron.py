@@ -13,4 +13,4 @@ class Neuron:
         return result
 
     def parameters(self):
-        return self.weight + [self.bias]
+        return self.weight + [self.bias] 
