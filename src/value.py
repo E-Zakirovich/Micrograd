@@ -1,3 +1,6 @@
+from math import exp
+
+
 class Value:
     def __init__(self, data, _children=(), _operation="", label=""):
         self.data = data
@@ -57,3 +60,20 @@ class Value:
 
     def __rtruediv__(self, other):
         return other * self ** (-1.0)
+
+    def exp(self):
+        out = Value(
+            data=exp(self.data),
+            _children=(self,),
+            _operation=" exp ",
+        )
+        return out
+
+    def tanh(self):
+        x = exp(self.data * 2.0)
+        out = Value(
+            data=(x - 1) / (x + 1),
+            _children=(self,),
+            _operation=" tan ",
+        )
+        return out
