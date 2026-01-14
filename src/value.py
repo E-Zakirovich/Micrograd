@@ -18,7 +18,6 @@ class Value:
         return out
 
     def __radd__(self, other):
-        other = other if isinstance(other, Value) else Value(other)
         return self + other
 
     def __mul__(self, other):
@@ -31,7 +30,6 @@ class Value:
         return out
 
     def __rmul__(self, other):
-        other = other if isinstance(other, Value) else Value(other)
         return self * other
 
     def __neg__(self):
@@ -42,7 +40,6 @@ class Value:
         return self + (-other)
 
     def __rsub__(self, other):
-        other = other if isinstance(other, Value) else Value(other)
         return other + (-self)
 
     def __pow__(self, other):
@@ -53,3 +50,10 @@ class Value:
             _operation=f" {self.label} ^ {other} ",
         )
         return out
+
+    def __truediv__(self, other):
+        other = other if isinstance(other, Value) else Value(other)
+        return self * other ** (-1.0)
+
+    def __rtruediv__(self, other):
+        return other * self ** (-1.0)
