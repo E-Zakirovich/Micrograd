@@ -7,6 +7,8 @@ class Value:
         self._prev = set(_children)
         self._operation = _operation
         self.label = label
+        self.grad = 0.0
+        self._backward = lambda: None
 
     def __repr__(self):
         return f"Value(data = {self.data} | type = {type(self.data)})"
