@@ -23,7 +23,7 @@ class Value:
 
         def _backward():
             self.grad += 1.0 * out.grad
-            other.grad += 1.0 * other.grad
+            other.grad += 1.0 * out.grad
 
         out._backward = _backward
 
@@ -42,7 +42,7 @@ class Value:
 
         def _backward():
             self.grad += other.data * out.grad
-            other.grad += self.data * other.grad
+            other.grad += self.data * out.grad
 
         out._backward = _backward
 
@@ -65,9 +65,14 @@ class Value:
         assert isinstance(other, (int, float)), "Power must be int or float"
         out = Value(
             data=self.data ** other,
-            _children=(self, other),
+            _children=(self, ),
             _operation=f" {self.label} ^ {other} ",
         )
+
+        def _backward():
+            self.grad += (other * self.data ** (other - 1.0)) * out.grad
+
+        out._backward = _backward
         return out
 
     def __truediv__(self, other):
@@ -95,7 +100,7 @@ class Value:
         out = Value(
             data=(x - 1) / (x + 1),
             _children=(self,),
-            _operation=" tan ",
+            _operation=" tanh ",
         )
 
         def _backward():
@@ -103,3 +108,19 @@ class Value:
 
         out._backward = _backward
         return out
+
+    def backward(self):
+        topo = []
+        visited = set()
+
+        def build_topo(v):
+            if v not in visited:
+                visited.add(v)
+                for child in v._prev:
+                    build_topo(child)
+                topo.append(v)
+
+        build_topo(self)
+        self.grad = 1.0
+        for node in reversed(topo):
+            node._backward()
