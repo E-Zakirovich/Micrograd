@@ -33,3 +33,6 @@ class Value:
     def __rmul__(self, other):
         other = other if isinstance(other, Value) else Value(other)
         return self * other
+
+    def __neg__(self):
+        return self * (-1.0)
