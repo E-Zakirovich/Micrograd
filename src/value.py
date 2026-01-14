@@ -36,3 +36,11 @@ class Value:
 
     def __neg__(self):
         return self * (-1.0)
+
+    def __sub__(self, other):
+        other = other if isinstance(other, Value) else Value(other)
+        return self + (-other)
+
+    def __rsub__(self, other):
+        other = other if isinstance(other, Value) else Value(other)
+        return other + (-self)
